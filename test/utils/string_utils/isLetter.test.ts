@@ -1,4 +1,4 @@
-import { assert, assertThrows } from "https://deno.land/std@0.91.0/testing/asserts.ts";
+import { assert, assertThrows } from "https://deno.land/std@0.92.0/testing/asserts.ts";
 import { isLetter } from "../../../src/utils/string_utils.ts";
 
 Deno.test("isLetter empty", () => {
@@ -34,5 +34,5 @@ Deno.test("isLetter special chars", () => {
 Deno.test("isLetter multiple characters", () => {
 	const actual = ["aa", "aaa", "ǳ", "ǆ", "ĳ", "ǉ", "ǌ"];
 
-	actual.forEach((entry, index) => assertThrows(() => isLetter(entry), undefined, undefined, index.toString()));
+	actual.forEach((entry, index) => assertThrows(() => isLetter(entry), undefined, undefined, `value: "${entry}", index: ${index}`));
 });

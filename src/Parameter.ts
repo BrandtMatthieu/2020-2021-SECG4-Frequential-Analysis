@@ -1,6 +1,6 @@
-import { parse } from "https://deno.land/std@0.91.0/flags/mod.ts";
-import { existsSync } from "https://deno.land/std@0.91.0/fs/mod.ts";
-import { bold, italic, red } from "https://deno.land/std@0.91.0/fmt/colors.ts";
+import { parse } from "https://deno.land/std@0.92.0/flags/mod.ts";
+import { existsSync } from "https://deno.land/std@0.92.0/fs/mod.ts";
+import { bold, italic, red } from "https://deno.land/std@0.92.0/fmt/colors.ts";
 import { checkIsActualNumber } from "./utils/number_utils.ts";
 
 /**
@@ -136,9 +136,14 @@ export class Parameter {
 			}
 		}
 		if(this.type.includes(ParameterType.PATH)) {
+			/*
+			// TODO output path parameter
+			// output in new file not existing
 			if(existsSync(value) && Deno.lstatSync(value).isFile) {
 				return void (this.value = Deno.realPathSync(value));
 			}
+			*/
+			return void (this.value = value);
 		}
 		if(this.type.includes(ParameterType.NUMBER)) {
 			const n = parseInt(value, 10);
@@ -256,7 +261,7 @@ export class Parameter {
 				description: "The language the encoded text is in. Only when decoding or printing the ciphering key.",
 				type: [ParameterType.AUTO, ParameterType.ENUM],
 				possibleValues: ["english", "en", "french", "fr"],
-				defaultValue: "en",
+				defaultValue: "auto",
 				example: "en",
 			}),
 			new Parameter({
@@ -273,7 +278,7 @@ export class Parameter {
 		const args = parse(Deno.args);
 
 		Object.entries(args)
-			.map(([key, value]) => ([key, value.toString() as string]))
+			.map(([key, value]: [string, string]) => ([key, value.toString() as string]))
 			.filter(([key, value]) => key !== "_")
 			.some(([key, value]) => {
 				const parameter = Parameter.parameters.find(parameter =>
@@ -290,16 +295,22 @@ export class Parameter {
 
 		args._.map(value => value.toString())
 			.some(value => {
-				const parameter = Parameter.parameters
+				const parameterValue = Parameter.parameters
 					.filter(parameter => parameter.type.includes(ParameterType.ENUM))
 					.find(parameter => parameter.possibleValues!.includes(value));
 
-				if(!parameter) {
+				const parameterName = Parameter.parameters
+					.filter(parameter => parameter.type.includes(ParameterType.BOOLEAN))
+					.find(parameter => parameter.longNames.includes(value) || parameter.shortNames.includes(value))
+				
+				if(parameterValue) {
+					parameterValue.setValue(value);
+				} else if(parameterName) {
+					parameterName.setValue("true");
+				} else {
 					console.warn(`Unknown parameter: "${value}"`);
-					return false;
 				}
-
-				parameter.setValue(value);
+				return false;
 			});
 	}
 

@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.91.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.92.0/testing/asserts.ts";
 import { shiftArrayRight } from "../../../src/utils/array_utils.ts";
 
 Deno.test("shiftArrayRight empty", () => {

@@ -10,40 +10,6 @@ export interface FixedLengthArray<T extends unknown, L extends number> extends A
 }
 
 /**
- * Shifts all elements of an array to the right.
- * [a, b, c, d] => [d, a, b, c]
- * @param arr the array to shift the elements in.
- * @param times the amount to shifts all the elements for.
- * @returns the shifted array.
- */
-export function shiftArrayRight<T>(arr: T[], times: number): T[] {
-	times = fixKey(times, arr.length);
-	arr = arr.slice();
-
-	for(let i = 0; i < times; ++i) {
-		if(arr.length >= 1) {
-			const temp = arr.pop()!;
-			arr.unshift(temp);
-		}
-	}
-
-	return arr;
-}
-
-/**
- * Shifts all elements of an array to the left.
- * [a, b, c, d] => [b, c, d, a]
- * @param arr the array to shift the elements in.
- * @param times the amount to shifts all the elements for.
- * @returns the shifted array.
- */
-export function shiftArrayLeft<T>(arr: T[], times: number): T[] {
-	times = fixKey(times, arr.length);
-
-	return [...arr.slice(times), ...arr.slice(0, times - arr.length)];
-}
-
-/**
  * Executes an operation on two elements at the same index in an array.
  * @param a an array of numbers.
  * @param b an array of numbers.
@@ -57,13 +23,39 @@ export function arrayOperator(a: number[], b: number[], c: (a: number, b: number
 }
 
 /**
- * Returns an array with the sum of every element at the same place.
- * @param a an array with numbers.
- * @param b an array with numbers.
- * @returns an array with the sum of every element at the same place.
+ * Checks an array isn't empty.
+ * @param arr the array to check.
+ * @throws an error if the array is empty.
  */
-export function getArraySum(a: number[], b: number[]): number[] {
-	return arrayOperator(a, b, (a, b) => a + b);
+export function checkArrayNotEmpty<T>(arr: T[]): void {
+	if(arr.length === 0) {
+		throw new Error("Array is empty");
+	}
+}
+
+/**
+ * Checks two arrays are the same length, or throws an error.
+ * @param a the first array.
+ * @param b the second array.
+ * @throws an error if the two arrays aren't the same size.
+ */
+export function checkArraySameLength<T>(a: T[], b: T[]): void {
+	if(a.length !== b.length) {
+		throw new Error("Arrays do not have the same length");
+	}
+}
+
+/**
+ * Returns the element from the array at the provided index, looping trough the array if the index is out of bounds.
+ * @param arr the array to pick the element from.
+ * @param index the index of the element to pick.
+ * @returns the selected element in the array.
+ */
+export function getArrayAt<T>(arr: T[], index: number): T {
+	checkArrayNotEmpty(arr);
+	index = fixKey(index, arr.length);
+
+	return arr[index];
 }
 
 /**
@@ -97,6 +89,16 @@ export function getArrayQuotient(a: number[], b: number[]) {
 }
 
 /**
+ * Returns an array with the sum of every element at the same place.
+ * @param a an array with numbers.
+ * @param b an array with numbers.
+ * @returns an array with the sum of every element at the same place.
+ */
+export function getArraySum(a: number[], b: number[]): number[] {
+	return arrayOperator(a, b, (a, b) => a + b);
+}
+
+/**
  * Returns the average difference between two frequencies arrays.
  * @param a an array with numbers.
  * @param b an array with numbers.
@@ -111,42 +113,6 @@ export function getAvgArrayDifference(a: number[], b: number[]): number {
 		.map(e => Math.abs(e))
 		.reduce((p, c) => p + c, 0)
 		/ a.length;
-}
-
-/**
- * Checks two arrays are the same length, or throws an error.
- * @param a the first array.
- * @param b the second array.
- * @throws an error if the two arrays aren't the same size.
- */
-export function checkArraySameLength<T>(a: T[], b: T[]): void {
-	if(a.length !== b.length) {
-		throw new Error("Arrays do not have the same length");
-	}
-}
-
-/**
- * Checks an array isn't empty.
- * @param arr the array to check.
- * @throws an error if the array is empty.
- */
-export function checkArrayNotEmpty<T>(arr: T[]): void {
-	if(arr.length === 0) {
-		throw new Error("Array is empty");
-	}
-}
-
-/**
- * Returns the element from the array at the provided index, looping trough the array if the index is out of bounds.
- * @param arr the array to pick the element from.
- * @param index the index of the element to pick.
- * @returns the selected element in the array.
- */
-export function getArrayAt<T>(arr: T[], index: number): T {
-	checkArrayNotEmpty(arr);
-	index = fixKey(index, arr.length);
-
-	return arr[index];
 }
 
 /**
@@ -172,8 +138,42 @@ export function getIndexArrayRepeatingStandingoutValue(arr: (number | null)[]): 
 			}
 			return Math.abs(e - avgs[i]!);
 		});
-	
-	const maxDiff = Math.max(... diffs as number[]);
+
+	const maxDiff = Math.max(...diffs as number[]);
 
 	return diffs.indexOf(maxDiff);
+}
+
+/**
+ * Shifts all elements of an array to the left.
+ * [a, b, c, d] => [b, c, d, a]
+ * @param arr the array to shift the elements in.
+ * @param times the amount to shifts all the elements for.
+ * @returns the shifted array.
+ */
+export function shiftArrayLeft<T>(arr: T[], times: number): T[] {
+	times = fixKey(times, arr.length);
+
+	return [...arr.slice(times), ...arr.slice(0, times - arr.length)];
+}
+
+/**
+ * Shifts all elements of an array to the right.
+ * [a, b, c, d] => [d, a, b, c]
+ * @param arr the array to shift the elements in.
+ * @param times the amount to shifts all the elements for.
+ * @returns the shifted array.
+ */
+export function shiftArrayRight<T>(arr: T[], times: number): T[] {
+	times = fixKey(times, arr.length);
+	arr = arr.slice();
+
+	for(let i = 0; i < times; ++i) {
+		if(arr.length >= 1) {
+			const temp = arr.pop()!;
+			arr.unshift(temp);
+		}
+	}
+
+	return arr;
 }

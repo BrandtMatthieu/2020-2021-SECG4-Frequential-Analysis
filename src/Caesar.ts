@@ -25,8 +25,14 @@ export class Caesar {
 	 * @param key the key to decode the encoded string with.
 	 * @returns the decoded message.
 	 */
-	public static decode(str: string, ft: FrequencyTable, key: number = invertKey(Caesar.findKey(str, ft))): string {
-		return Caesar.encode(str, key);
+	public static decode(str: string, key: number): string;
+	public static decode(str: string, key: undefined, ft: FrequencyTable): string;
+	public static decode(str: string, key: number | undefined, ft?: FrequencyTable): string {
+		if(key === undefined) {
+			key = Caesar.findKey(str, ft!)
+		}
+		
+		return Caesar.encode(str, invertKey(key));
 	}
 
 	/**

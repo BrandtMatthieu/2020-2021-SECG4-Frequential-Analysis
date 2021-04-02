@@ -1,5 +1,5 @@
 import { letterToAlphabetIndex } from "../../../src/utils/string_utils.ts";
-import { assert, assertEquals, assertThrows } from "https://deno.land/std@0.91.0/testing/asserts.ts";
+import { assert, assertEquals, assertThrows } from "https://deno.land/std@0.92.0/testing/asserts.ts";
 
 Deno.test("letterToAlphabetIndex empty", () => {
 	const actual = "";

@@ -1,7 +1,7 @@
-import { isLetter, letterToAlphabetIndex, alphabetIndexToLetter, isUpperCase, splitStringAlternate } from "./utils/string_utils.ts";
+import { isLetter, letterToAlphabetIndex, alphabetIndexToLetter, isUpperCase, splitStringAlternate, normalize } from "./utils/string_utils.ts";
 import { invertArrayKey } from "./utils/key_utils.ts";
 import { getArrayAt, getIndexArrayRepeatingStandingoutValue } from "./utils/array_utils.ts";
-import { getCoincidenceIndex, getChiSquaredScore } from "./utils/crypto_utils.ts";
+import { getCoincidenceIndex } from "./utils/crypto_utils.ts";
 import { FrequencyTable } from "./utils/frequency_utils.ts";
 import { Caesar } from "./Caesar.ts";
 
@@ -17,6 +17,8 @@ export class Vigenere {
 	 * @returns the encoded string.
 	 */
 	public static encode(str: string, key: number[]): string {
+		str = normalize(str);
+
 		let index = 0;
 		return str
 			.split("")
@@ -36,7 +38,13 @@ export class Vigenere {
 	 * @param key the key to decode the encoded string with.
 	 * @returns the decoded message.
 	 */
-	public static decode(str: string, ft: FrequencyTable, key: number[] = invertArrayKey(Vigenere.findKey(str, ft))): string {
+	public static decode(str: string, key: number[]): string;
+	public static decode(str: string, key: undefined, ft: FrequencyTable): string;
+	public static decode(str: string, key: number[] | undefined, ft?: FrequencyTable) {
+		if(key === undefined) {
+			key = invertArrayKey(Vigenere.findKey(str, ft!));
+		}
+
 		return Vigenere.encode(str, key);
 	}
 
@@ -62,8 +70,10 @@ export class Vigenere {
 			.map((e, index) => index > MIN_KEY_LENGHT ? e.reduce((p, c) => p + c, 0) / e.length : null); // [null, null, float, float]
 
 		const indexStandingoutNumber = getIndexArrayRepeatingStandingoutValue(possibleKeys);
-		// TODO can be improved, check if likely to be IC of language
-		// TODO use the Kasiaki method
+		// TODO findKeyLength
+		// can be improved
+		// check if likely to be IC of language
+		// use the Kasiaki method
 		return indexStandingoutNumber;
 	}
 }

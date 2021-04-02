@@ -1,7 +1,7 @@
-import { assertEquals, assertThrows } from "https://deno.land/std@0.91.0/testing/asserts.ts";
+import { assertEquals, assertThrows } from "https://deno.land/std@0.92.0/testing/asserts.ts";
 import { Vigenere } from "../src/Vigenere.ts";
 
-Deno.test("vigenere empty string", () => {
+Deno.test("vigenere encode empty string", () => {
 	const actual = "";
 	const key = [1];
 	const expected = "";
@@ -9,7 +9,7 @@ Deno.test("vigenere empty string", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere empty key", () => {
+Deno.test("vigenere encode empty key", () => {
 	const actual = "abc";
 	const key: number[] = [];
 	const expected = "";
@@ -17,7 +17,7 @@ Deno.test("vigenere empty key", () => {
 	assertThrows(() => Vigenere.encode(actual, key));
 });
 
-Deno.test("vigenere char -1 lowercase", () => {
+Deno.test("vigenere encode char -1 lowercase", () => {
 	const actual = "a";
 	const key = [-1];
 	const expected = "z";
@@ -25,7 +25,7 @@ Deno.test("vigenere char -1 lowercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere char -1 uppercase", () => {
+Deno.test("vigenere encode char -1 uppercase", () => {
 	const actual = "A";
 	const key = [-1];
 	const expected = "Z";
@@ -33,7 +33,7 @@ Deno.test("vigenere char -1 uppercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere char 0 lowercase", () => {
+Deno.test("vigenere encode char 0 lowercase", () => {
 	const actual = "a";
 	const key = [0];
 	const expected = "a";
@@ -41,7 +41,7 @@ Deno.test("vigenere char 0 lowercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere char 0 uppercase", () => {
+Deno.test("vigenere encode char 0 uppercase", () => {
 	const actual = "A";
 	const key = [0];
 	const expected = "A";
@@ -49,7 +49,7 @@ Deno.test("vigenere char 0 uppercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere char 1 lowercase", () => {
+Deno.test("vigenere encode char 1 lowercase", () => {
 	const actual = "a";
 	const key = [1];
 	const expected = "b";
@@ -57,7 +57,7 @@ Deno.test("vigenere char 1 lowercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere char 1 lowercase", () => {
+Deno.test("vigenere encode char 1 lowercase", () => {
 	const actual = "z";
 	const key = [1];
 	const expected = "a";
@@ -65,7 +65,7 @@ Deno.test("vigenere char 1 lowercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere char 1 uppercase", () => {
+Deno.test("vigenere encode char 1 uppercase", () => {
 	const actual = "A";
 	const key = [1];
 	const expected = "B";
@@ -73,7 +73,7 @@ Deno.test("vigenere char 1 uppercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere char 1 uppercase", () => {
+Deno.test("vigenere encode char 1 uppercase", () => {
 	const actual = "Z";
 	const key = [1];
 	const expected = "A";
@@ -81,7 +81,7 @@ Deno.test("vigenere char 1 uppercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere string -1 lowercase", () => {
+Deno.test("vigenere encode string -1 lowercase", () => {
 	const actual = "abcde";
 	const key = [-1, -1, -1, -1, -1];
 	const expected = "zabcd";
@@ -89,7 +89,7 @@ Deno.test("vigenere string -1 lowercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere string -1 uppercase", () => {
+Deno.test("vigenere encode string -1 uppercase", () => {
 	const actual = "ABCDE";
 	const key = [-1, -1, -1, -1, -1];
 	const expected = "ZABCD";
@@ -97,7 +97,7 @@ Deno.test("vigenere string -1 uppercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere string 0 lowercase", () => {
+Deno.test("vigenere encode string 0 lowercase", () => {
 	const actual = "abcde";
 	const key = [0, 0, 0, 0, 0];
 	const expected = "abcde";
@@ -105,7 +105,7 @@ Deno.test("vigenere string 0 lowercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere string 0 uppercase", () => {
+Deno.test("vigenere encode string 0 uppercase", () => {
 	const actual = "ABCDE";
 	const key = [0, 0, 0, 0, 0];
 	const expected = "ABCDE";
@@ -113,7 +113,7 @@ Deno.test("vigenere string 0 uppercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere string 1 lowercase", () => {
+Deno.test("vigenere encode string 1 lowercase", () => {
 	const actual = "abcde";
 	const key = [1, 1, 1, 1, 1];
 	const expected = "bcdef";
@@ -121,7 +121,7 @@ Deno.test("vigenere string 1 lowercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere string 1 uppercase", () => {
+Deno.test("vigenere encode string 1 uppercase", () => {
 	const actual = "ABCDE";
 	const key = [1, 1, 1, 1, 1];
 	const expected = "BCDEF";
@@ -129,7 +129,7 @@ Deno.test("vigenere string 1 uppercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere string random lowercase", () => {
+Deno.test("vigenere encode string random lowercase", () => {
 	const actual = "abcde";
 	const key = [0, 1, 2, 3, 4];
 	const expected = "acegi";
@@ -137,7 +137,7 @@ Deno.test("vigenere string random lowercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere string random uppercase", () => {
+Deno.test("vigenere encode string random uppercase", () => {
 	const actual = "ABCDE";
 	const key = [0, 1, 2, 3, 4];
 	const expected = "ACEGI";
@@ -145,7 +145,7 @@ Deno.test("vigenere string random uppercase", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere string random mixed", () => {
+Deno.test("vigenere encode string random mixed", () => {
 	const actual = "aBcDe";
 	const key = [0, 1, 2, 3, 4];
 	const expected = "aCeGi";
@@ -153,7 +153,7 @@ Deno.test("vigenere string random mixed", () => {
 	assertEquals(Vigenere.encode(actual, key), expected);
 });
 
-Deno.test("vigenere string random mixed special chars", () => {
+Deno.test("vigenere encode string random mixed special chars", () => {
 	const actual = "Ab. Cde;";
 	const key = [0, 1, 2, 3, 4];
 	const expected = "Ac. Egi;";

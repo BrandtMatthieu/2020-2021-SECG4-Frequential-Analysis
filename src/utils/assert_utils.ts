@@ -1,4 +1,4 @@
-import { AssertionError } from "https://deno.land/std@0.91.0/testing/asserts.ts";
+import { AssertionError } from "https://deno.land/std@0.92.0/testing/asserts.ts";
 
 /**
  * Makes an assertion that `actual` and `expected` are equal to an extend.

@@ -1,23 +1,22 @@
 /**
- * Checks if a number is not 0.
+ * Checks if a number is an actual number.
  * @param n the number to check.
- * @throws an error if the number is 0.
+ * @throws an error if the number is infinite or NaN.
  */
-export function checkIsNotNull(n: number): void {
-	if(n === 0) {
-		throw new Error("Number cannot be 0");
-	}
+export function checkIsActualNumber(n: number): void {
+	checkIsNotNaN(n);
+	checkIsNotInfinite(n);
 }
 
 /**
- * Checks if a number is not negative.
+ * Checks if a number is positive.
  * @param n the number to check.
- * @throws an error if the number is negative.
+ * @throws an error if the number isn't positive.
  */
-export function checkIsNotNegative(n: number): void {
-	if(n < 0) {
-		throw new Error("Number cannot be negative");
-	}
+export function checkIsActualPositiveNumber(n: number): void {
+	checkIsNotNaN(n);
+	checkIsNotInfinite(n);
+	checkIsNotNegative(n);
 }
 
 /**
@@ -43,24 +42,25 @@ export function checkIsNotNaN(n: number): void {
 }
 
 /**
- * Checks if a number is an actual number.
+ * Checks if a number is not negative.
  * @param n the number to check.
- * @throws an error if the number is infinite or NaN.
+ * @throws an error if the number is negative.
  */
-export function checkIsActualNumber(n: number): void {
-	checkIsNotNaN(n);
-	checkIsNotInfinite(n);
+export function checkIsNotNegative(n: number): void {
+	if(n < 0) {
+		throw new Error("Number cannot be negative");
+	}
 }
 
 /**
- * Checks if a number is positive.
+ * Checks if a number is not 0.
  * @param n the number to check.
- * @throws an error if the number isn't positive.
+ * @throws an error if the number is 0.
  */
-export function checkIsActualPositiveNumber(n: number): void {
-	checkIsNotNaN(n);
-	checkIsNotInfinite(n);
-	checkIsNotNegative(n);
+export function checkIsNotNull(n: number): void {
+	if(n === 0) {
+		throw new Error("Number cannot be 0");
+	}
 }
 
 /**

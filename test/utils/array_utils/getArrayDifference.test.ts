@@ -1,4 +1,4 @@
-import { assertEquals, assertThrows } from "https://deno.land/std@0.91.0/testing/asserts.ts";
+import { assertEquals, assertThrows } from "https://deno.land/std@0.92.0/testing/asserts.ts";
 import { assertEqualsFloat } from "../../../src/utils/assert_utils.ts";
 import { getArrayDifference } from "../../../src/utils/array_utils.ts";
 

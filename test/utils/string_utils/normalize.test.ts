@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.91.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.92.0/testing/asserts.ts";
 import { normalize } from "../../../src/utils/string_utils.ts";
 
 Deno.test("normalize empty", () => {
@@ -95,4 +95,11 @@ Deno.test("normalize multiple characters", () => {
 	const expected = "ae";
 
 	actual.forEach(entry => assertEquals(normalize(entry), expected));
+});
+
+Deno.test("normalize unicode text", () => {
+	const actual =  "lôrèm ípsùm dòlór sït âmèt, cônséctétùr ádípìscíng élít.";
+	const expcted = "lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+
+	assertEquals(normalize(actual), expcted);
 });

@@ -4,6 +4,16 @@ import { FixedLengthArray, getAvgArrayDifference } from "./array_utils.ts";
 export type FrequencyTable = FixedLengthArray<number, 26>;
 
 /**
+ * Returns the average difference between two frequencies arrays.
+ * @param a a frequency array.
+ * @param b another frequency array.
+ * @returns the average difference of frequencies.
+ */
+export function getAvgFrequencyDifference(a: FrequencyTable, b: FrequencyTable): number {
+	return getAvgArrayDifference(a, b);
+}
+
+/**
  * Returns an array with the count of evey letter in a string.
  * @param str the string to analyze.
  * @returns the array with the amount of every letter.
@@ -33,14 +43,4 @@ export function getLetterFrequency(str: string): FrequencyTable {
 	const lt = getLetterDistribution(str);
 
 	return lt.map(e => e / str.length) as FrequencyTable;
-}
-
-/**
- * Returns the average difference between two frequencies arrays.
- * @param a a frequency array.
- * @param b another frequency array.
- * @returns the average difference of frequencies.
- */
-export function getAvgFrequencyDifference(a: FrequencyTable, b: FrequencyTable): number {
-	return getAvgArrayDifference(a, b);
 }

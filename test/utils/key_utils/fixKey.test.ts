@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.91.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.92.0/testing/asserts.ts";
 import { fixKey } from "../../../src/utils/key_utils.ts";
 
 Deno.test("fixKey -27 % 26", () => {
