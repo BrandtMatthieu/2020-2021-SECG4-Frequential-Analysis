@@ -82,7 +82,7 @@ export function findMinKey(a: FrequencyTable, b: FrequencyTable): number {
 export function stringToKey(str: string): number[] {
 	return extractLetterString(str)
 		.split("")
-		.map(c => letterToAlphabetIndex(c));
+		.map((c: string) => letterToAlphabetIndex(c));
 }
 
 /**

@@ -207,7 +207,7 @@ export class Parameter {
 				possibleValues: [],
 				defaultValue: "auto",
 				example: "3",
-				check: (str: string) => {},
+				check: (str: string) => void str,
 			}),
 			new Parameter({
 				shortNames: ["i", "if"],
@@ -216,7 +216,7 @@ export class Parameter {
 				type: [ParameterType.PATH, ParameterType.STRING],
 				defaultValue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 				example: "Secret message",
-				check: (str: string) => {},
+				check: (str: string) => void str,
 			}),
 			new Parameter({
 				shortNames: ["o", "of"],
@@ -244,7 +244,7 @@ export class Parameter {
 				possibleValues: [],
 				defaultValue: "auto",
 				example: "auto",
-				check: (str: string) => {},
+				check: (str: string) => void str,
 			}),
 			new Parameter({
 				shortNames: ["sf"],
@@ -278,7 +278,7 @@ export class Parameter {
 		const args = parse(Deno.args);
 
 		Object.entries(args)
-			.map(([key, value]: [string, string]) => ([key, value.toString() as string]))
+			.map(([key, value]): [string, string] => ([key, value as string]))
 			.filter(([key, value]) => key !== "_")
 			.some(([key, value]) => {
 				const parameter = Parameter.parameters.find(parameter =>
@@ -293,8 +293,8 @@ export class Parameter {
 				return false;
 			});
 
-		args._.map(value => value.toString())
-			.some(value => {
+		args._.map((value: string | number) => value.toString())
+			.some((value: string) => {
 				const parameterValue = Parameter.parameters
 					.filter(parameter => parameter.type.includes(ParameterType.ENUM))
 					.find(parameter => parameter.possibleValues!.includes(value));

@@ -69,7 +69,7 @@ deno run --unstable --allow-read --allow-write index.ts -m decode -i input.txt -
 To run the tests, run :
 
 ```bash
-deno test test/
+deno test --unstable --allow-run test/
 ```
 
 ## Credits

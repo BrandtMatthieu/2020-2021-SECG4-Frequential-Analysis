@@ -45,7 +45,7 @@ export class Vigenere {
 			key = invertArrayKey(Vigenere.findKey(str, ft!));
 		}
 
-		return Vigenere.encode(str, key);
+		return Vigenere.encode(str, key!);
 	}
 
 	/**
@@ -56,7 +56,7 @@ export class Vigenere {
 	 */
 	public static findKey(str: string, ft: FrequencyTable): number[] {
 		return splitStringAlternate(str, Vigenere.findKeyLength(str))
-			.map(e => Caesar.findKey(e, ft));
+			.map((e: string) => Caesar.findKey(e, ft));
 	}
 
 	public static findKeyLength(str: string): number {
@@ -66,8 +66,8 @@ export class Vigenere {
 		const possibleKeys = new Array(MAX_KEY_LENGHT + 1)
 			.fill([]) // [[], [], [], []]
 			.map((e, index) => index > MIN_KEY_LENGHT ? splitStringAlternate(str, index) : []) // [[], [], ["ace", "bdf"], ["ad", "be", "cf"]]
-			.map((e, index) => index > MIN_KEY_LENGHT ? e.map(f => getCoincidenceIndex(f)) : []) // [[], [], [float, float], [float, float, float]]
-			.map((e, index) => index > MIN_KEY_LENGHT ? e.reduce((p, c) => p + c, 0) / e.length : null); // [null, null, float, float]
+			.map((e, index) => index > MIN_KEY_LENGHT ? e.map((f: string) => getCoincidenceIndex(f)) : []) // [[], [], [float, float], [float, float, float]]
+			.map((e, index) => index > MIN_KEY_LENGHT ? e.reduce((p: number, c: number) => p + c, 0) / e.length : null); // [null, null, float, float]
 
 		const indexStandingoutNumber = getIndexArrayRepeatingStandingoutValue(possibleKeys);
 		// TODO findKeyLength

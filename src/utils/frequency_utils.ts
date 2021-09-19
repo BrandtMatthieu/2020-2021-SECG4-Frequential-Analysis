@@ -42,5 +42,5 @@ export function getLetterFrequency(str: string): FrequencyTable {
 
 	const lt = getLetterDistribution(str);
 
-	return lt.map(e => e / str.length) as FrequencyTable;
+	return lt.map((e: number) => e / str.length) as FrequencyTable;
 }

@@ -167,8 +167,8 @@ export function printHelp(): void {
 		bold("DESCRIPTION"),
 		"",
 		...Parameter.parameters
-			.map(parameter => parameter.toString(4))
-			.map(parameter => parameter + "\n"),
+			.map((parameter: Parameter) => parameter.toString(4))
+			.map((parameter: string) => parameter + "\n"),
 	]
 		.join("\n"));
 }

@@ -20,7 +20,7 @@ export function getChiSquaredScore(str: string, frequencyTable: FrequencyTable, 
 	const error = getArrayDifference(candidate, expected);
 	const squaredError = getArrayMultiplication(error, error);
 	const normalizedSquaredError = getArrayQuotient(squaredError, expected);
-	const normalizedSquaredErrorSum = normalizedSquaredError.reduce((p, c) => p + c, 0);
+	const normalizedSquaredErrorSum = normalizedSquaredError.reduce((p: number, c: number) => p + c, 0);
 	return normalizedSquaredErrorSum;
 }
 
@@ -37,8 +37,8 @@ export function getCoincidenceIndex(str: string): number {
 	const letterCount: number = getLetterCount(str);
 
 	return letterDistribution
-		.map(e => (e / letterCount) * ((e - 1) / (letterCount - 1))) // TODO coincidence index fix divide by 0
-		.reduce((p, c) => p + c, 0);
+		.map((e: number) => (e / letterCount) * ((e - 1) / (letterCount - 1))) // TODO coincidence index fix divide by 0
+		.reduce((p: number, c: number) => p + c, 0);
 }
 
 export function guessCipher(str: string): "caesar" | "vigenere" {
